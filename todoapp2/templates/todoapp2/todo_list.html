@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}todo list{% endblock %}
+{% block content %}
+<form method="POST">
+  <ul class="list-group">
+  {% for todoitem in todolist %}
+  <li class="list-group-item">
+    {% if todoitem.checked %}
+    <input class="form-check-input me-1" type="checkbox" name="checked" checked value="{{todoitem.id}}">
+    {% else %}
+    <input class="form-check-input me-1" type="checkbox" name="checked" value="{{todoitem.id}}" aria-label="...">
+    {% endif %}
+    {{todoitem.task}}
+    <a href="{% url 'todoapp2:todoTaskDelete' todoitem.id%}">Delete</a>
+  </li>
+  {% endfor %}
+</ul>
+  {% csrf_token %}
+  <button type="submit" class="btn btn-primary">submit</button>
+  <a href="/create">create new task</a>
+</form>
+{% endblock %}
